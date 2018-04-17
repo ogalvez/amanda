@@ -1,0 +1,201 @@
+<div class="w3-row" style="max-width: 750px; margin: 25px auto">
+    <h3>Giros de desarrollos</h3>
+    <div class="w3-col l11">
+        <table class="w3-table w3-centered">
+            <tr class="w3-blue">
+                <th>Código</th>
+                <th>Nombre</th>
+            </tr>
+            <tbody>
+            <?php
+                foreach($result as $key => $row)
+                    echo "<tr data-id='$row[CODIGO_GIRO]'>
+                        <td>$row[CODIGO_GIRO]</td> 
+                        <td>$row[NOMBRE]</td>
+                    </tr>";
+            ?>
+            </tbody>
+        </table>
+    </div><!-- w3-col -->
+    <div class="w3-col l1">
+        <div class="w3-sidebar w3-bar-block" style="width:70px" >
+            <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('modalAlta').style.display='block'"><i class="fa fa-plus-circle w3-xxlarge"></i></a> 
+            <a href="#delete" class="w3-bar-item w3-button actionButtons"><i class="fa fa-times-circle w3-xxlarge"></i></a> 
+            <a href="#update" class="w3-bar-item w3-button actionButtons"><i class="fa fa-edit w3-xxlarge"></i></a> 
+            <a href="#consult" class="w3-bar-item w3-button actionButtons"><i class="fa fa-eye w3-xxlarge"></i></a>
+            <a href="#" class="w3-bar-item w3-button" id="btnExport"><i class="fa fa-file-pdf-o w3-xxlarge"></i></a> 
+        </div><!-- sidebar -->
+    </div><!-- w3-col -->
+</div><!-- w3-row -->
+<div id="modalAlta" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container"> 
+            <span onclick="document.getElementById('modalAlta').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h2>Alta de giros de desarrollos</h2>
+        </header>
+        <div class="w3-container">
+            <label>Nombre *</label>
+            <input class="w3-input w3-border" type="text" id="txtNombre">
+            <button class="w3-button w3-green w3-block w3-margin-bottom" id="btnAgregar">Agregar</button>
+        </div>
+    </div>
+</div><!-- w3-modal -->
+<div id="modalUpdate" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container"> 
+            <span onclick="document.getElementById('modalUpdate').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h2>Edición de giros de desarrollos</h2>
+        </header>
+        <div class="w3-container">
+            <label>Nombre *</label>
+            <input class="w3-input w3-border edit w3-hide" type="text" id="txtIdEdita">
+            <input class="w3-input w3-border edit" type="text" id="txtNombreEdita">
+            <button class="w3-button w3-green w3-block w3-margin-bottom" id="btnGuardar">Guardar cambios</button>
+        </div>
+    </div>
+</div><!-- w3-modal -->
+<div id="modalConsult" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container"> 
+            <span onclick="document.getElementById('modalConsult').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h2>Consulta de giros de desarrollos</h2>
+        </header>
+        <div class="w3-container">
+            <label>Nombre *</label>
+            <input class="w3-input w3-border editC w3-hide" type="text" disabled>
+            <input class="w3-input w3-border editC" type="text" disabled>
+        </div>
+    </div>
+</div><!-- w3-modal -->
+<script>
+    $(document).ready(function(){
+        var regexMail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        
+        $("tbody tr").click(function () {
+            $('.selected').removeClass('selected');
+            $(this).addClass("selected");
+        });//tbody tr
+        
+        $(".actionButtons").click(function(e){
+            e.preventDefault();
+            var x = document.getElementsByClassName('selected');
+            if(x.length === 0)
+                alert("selecciona un tr");
+            else
+            {
+                var action = $(this).attr('href').substring(1);
+                var id = x[0].getAttribute("data-id");
+                switch(action)
+                {
+                    case 'delete':
+                        $.ajax({
+                            type: "POST",
+                            url: 'index.php',
+                            data: {c:"Giros", a:"delete", id:id},
+                            success: function(response){
+				$("#contenidos").html(response);
+                            },
+                            error: function(xhr, status, error) {
+                                var err = eval("(" + xhr.responseText + ")");
+                                alert(err.Message);
+                            }
+			});//ajax
+                    break;
+                    case 'update':
+                        $.ajax({
+                            type: "POST",
+                            url: 'index.php',
+                            data: {c:"Giros", a:"retrive", id:id},
+                            success: function(response){
+                                var inputs = document.getElementsByClassName("edit");
+                                var obj = JSON.parse(response);
+                                var idx = 0;
+                                for (var i in obj)
+                                    for (var j in obj[i])
+                                        inputs[idx++].setAttribute("value", obj[i][j]);
+				document.getElementById('modalUpdate').style.display = 'block';
+                            }//success
+			});//ajax
+                    break;
+                    case 'consult':
+                        $.ajax({
+                            type: "POST",
+                            url: 'index.php',
+                            data: {c:"Giros", a:"retrive", id:id},
+                            success: function(response){
+                                var inputs = document.getElementsByClassName("editC");
+                                var obj = JSON.parse(response);
+                                var idx = 0;
+                                for (var i in obj)
+                                    for (var j in obj[i])
+                                        inputs[idx++].setAttribute("value", obj[i][j]);
+				document.getElementById('modalConsult').style.display = 'block';
+                            }//success
+			});//ajax
+                    break;
+                }//switch
+            }//else
+        });//actionButtons a
+        
+        $("#btnExport").click(function(){
+            $.ajax({
+                type: "POST",
+                url: 'index.php',
+                data: {c:"Giros", a:"export"},
+                success: function(){
+                    window.open('public/files/giros.pdf', '_blank');
+                }//success
+            });//ajax
+        });//btnExport
+        
+        $("#btnAgregar").click(function(){
+            if(!emptyFields("modalAlta"))
+            {
+                var nombre = $("#txtNombre").val().trim().toUpperCase();
+                $.ajax({
+                    type: "POST",
+                    url: "index.php",
+                    data: {nombre:nombre, c:"Giros", a:"insert"},
+                    success: function(response){
+                        $("#contenidos").html(response);
+                    }//success
+                });//ajax
+            }//if
+            else
+                alert("TODOS LOS CAMPOS SON OBLIGATORIOS.");
+        });//btnAgregar
+        
+        $("#btnGuardar").click(function(){
+            if(!emptyFields("modalUpdate"))
+            {
+                var id = $("#txtIdEdita").val();
+                var nombre = $("#txtNombreEdita").val().trim().toUpperCase();
+                $.ajax({
+                    type: "POST",
+                    url: "index.php",
+                    data: {c:"Giros", a:"update", id:id, nombre:nombre},
+                    success: function(response){
+                        $("#contenidos").html(response);
+                    }//success
+                });//ajax
+            }//if
+            else
+                alert("TODOS LOS CAMPOS SON OBLIGATORIOS.");
+        });//btnGuardar
+        
+        function emptyFields(parent){
+            var bandera = false;
+            $("#" + parent + "input").each(function() {
+                if ($(this).val().trim() == "")
+                    bandera = true;
+            });
+            return bandera;
+        }//emptyFields
+    });//document
+</script>
+<style>
+    .selected {
+	background-color: blue;
+	color: white;
+    }
+</style>

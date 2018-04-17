@@ -1,0 +1,81 @@
+<form class="w3-container w3-margin-top">
+	<input type="text" name="c" id="txtController" value="Sistemas" style="display: none">
+	<input type="text" name="a" id="txtAction" value="insert" style="display: none">
+	<label>Sistema</label>
+	<input type="text" name="sistema" id="txtSistema">
+	<label>Código</label>
+	<input type="text" name="codigo" id="txtCodigo">
+	<button class="w3-button w3-green" id="btnAgregar">Agregar</button>
+</form>
+<table class="w3-table-all w3-centered" style="max-width: 1000px; margin: 25px auto">
+	<tr class="w3-blue">
+		<th>Sistemas</th>
+		<th>Código</th>
+		<th>Delete</th>
+		<th>Update</th>
+	</tr>
+	<tbody>
+		<tr>
+		<?php
+			foreach($sistemas as $key => $row)
+				echo "<tr>
+					<td><input type='text' class='w3-input w3-border' value='$row[sistema]'</td> 
+					<td><input type='text' class='w3-input w3-border' value='$row[codigo]'</td> 
+					<td><button class='w3-button w3-red delete' data-idx='$row[id_sistema]' data-c='Sistemas' data-a='delete'> DELETE </button></td>
+					<td><button class='w3-button w3-green update' data-idx='$row[id_sistema]' data-c='Sistemas' data-a='update'> UPDATE </button></td>
+				</tr>";
+		?>
+		</tr>
+	</tbody>
+</table>
+<script>
+	$(document).ready(function(){
+		$('#btnAgregar').click(function(e){
+			e.preventDefault();
+			var controller = $('#txtController').val();
+			var action = $('#txtAction').val();
+			var sistema = $('#txtSistema').val();
+			var codigo = $('#txtCodigo').val();
+			$.ajax({
+				type: "POST",
+				url: 'index.php',
+				data: {c:controller, a:action, sistema:sistema, codigo:codigo},
+				success: function(response){
+					$("#contenidos").html(response);
+				}
+			});//ajax
+		});//btnAgregar
+
+		$('.delete').click(function(){
+			var controller = $(this).attr('data-c');
+			var action = $(this).attr('data-a');
+			var idx = $(this).attr('data-idx');
+			$.ajax({
+				type: "POST",
+				url: 'index.php',
+				data: {c:controller, a:action, idx:idx},
+				success: function(response){
+					$("#contenidos").html(response);
+				}
+			});//ajax
+		});//table button
+
+		$('.update').click(function(){
+			var controller = $(this).attr('data-c');
+			var action = $(this).attr('data-a');
+			var idx = $(this).attr('data-idx');
+			var array = [];
+			$(this).closest('tr').find("input").each(function(){
+        		array.push(this.value);
+    		});//closest input
+			$.ajax({
+				type: "POST",
+				url: 'index.php',
+				data: {c:controller, a:action, idx:idx, sistema:array[0], codigo:array[1]},
+				success: function(response){
+					$("#contenidos").html(response);
+				}
+			});//ajax
+		});//table button
+	});//ready
+</script>

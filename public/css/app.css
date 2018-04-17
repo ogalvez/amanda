@@ -1,0 +1,29 @@
+#contenedorForma {
+width: 40%;
+margin: auto;
+}
+
+#mensajesInformacion {
+		background-color: #00AD83;
+				    color:white;
+
+	    display: none;	
+	    padding: 10px
+}
+
+#botonCerrar{
+	background-color: #00AD83;
+	color:white;
+
+}
+
+td .action {
+	width: 20px;
+	height: 20px;
+	
+
+}
+
+td .action:hover {
+	cursor:pointer;
+}

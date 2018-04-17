@@ -1,0 +1,157 @@
+<!doctype html>
+<html lang="es">
+	<head>
+		<title>MVC Template</title>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+		<script src="public/js/jquery.min.js"></script>
+		<script src="public/js/vendor/foundation.js"></script>
+		<link rel="stylesheet" href="public/css/w3.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+		<link rel="stylesheet" href="public/css/foundation.css">
+        <link rel="stylesheet" href="public/css/app.css">
+        <link rel="stylesheet" href="public/jqui/jquery-ui.css">
+        <script src="public/jqui/jquery-ui.js"></script>	
+        <link rel="stylesheet" href="public/css/estilo.css">	
+        <link rel="stylesheet" href="public/css/app.css">	
+        <link rel="stylesheet" href="public/css/icons/foundation-icons.css">
+	</head>
+	<body>
+		<div class="nav" id="menuPrincipal"> 
+			<ul class="dropdown menu" data-dropdown-menu>
+              <li>
+              	<a href="#plazas">Plazas</a>
+                <ul class="menu" id="Plazas">
+                  <li><a class="submenuitem" href="#">Agregar</a></li>
+                  <li><a class="submenuitem" href="#">Lista</a></li>
+                  <!-- ... -->
+                </ul>
+              </li>
+               <li>
+              	<a href="#empresas">Empresas</a>
+                <ul class="menu" id="Empresas">
+                  <li><a class="submenuitem" href="#">Agregar</a></li>
+                  <li><a class="submenuitem" href="#">Lista</a></li>
+                  <!-- ... -->
+                </ul>
+              </li>
+              <li>
+              	<a href="#desarrollos">Desarrollos</a>
+                <ul class="menu" id="Desarrollos">
+                  <li><a class="submenuitem" href="#">Modificar</a></li>
+                  <li><a class="submenuitem" href="#">Lista</a></li>
+                  <!-- ... -->
+                </ul>
+              </li>
+               <li>
+              	<a href="#giros">Giros</a>
+              </li>
+        </ul>
+  			
+  			
+		</div>
+		<div   id="contenidos">
+
+		</div>
+		<script type="text/javascript">
+			$(document).ready(function(){
+				var controller = "default";
+				$(document).foundation();
+				$('ul.dropdown > li > a[href^="#"]').click(function(){
+					 controller = $(this).text();
+					 //alert(controller);
+					 
+					
+					$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:controller},
+						success: function(response){
+							$("#contenidos").html(response);
+						}//success
+					});//ajax
+				});//nav a
+
+				
+				$(".is-dropdown-submenu-item").click(function(){
+
+					var parent= $(this).parent()[0].id;
+					var action = $(this).text();
+
+
+					$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:parent , a:action},
+						success: function(response){
+							$("#contenidos").html(response);
+						}//success
+					});//ajax
+					});
+			});//document
+
+
+
+			function validarVacios(){
+				var x = $("#formaAltaPlaza")[0].length ; 
+				var vacios = 0;
+				for (var i= 0 ; i < x-2 ; i++){
+
+					if($("#formaAltaPlaza")[0][i].value.trim() == ""){
+						vacios++;
+					}
+
+				}
+
+				if (vacios > 0) {
+					return false;
+				}
+				else {
+					return true;
+				}
+
+			}
+			
+			function enviarForma(controller, action){				
+				var vacios = validarVacios();
+				if(vacios === true) {
+					var formaPlaza = new FormData($('#formaAltaPlaza')[0]);
+					//alert(formaPlaza.val);
+					 
+					formaPlaza.append("c", controller);
+					formaPlaza.append("a", action);
+					alert(controller + " " + action)
+					alert(formaPlaza);
+					$.ajax({
+						type: "POST",
+						async:true,
+						url:"index.php",		
+						success:function(data){
+								$("#dialog").dialog("close");
+								$("#contenidos").html(data);							
+						},
+						error:function(request,status,error){
+							$("#dialog").dialog("open");
+							$("#dialog").html("hola");
+						},
+						data: {c:'Plazas' , a:'update'},
+						//cache:false, 
+						//contentType:false,
+						processData:false
+					}
+					);
+
+				}
+
+				else {
+					alert("Campos Vacios");
+				}
+
+			}
+			
+		
+		
+		</script>
+		
+	</body>
+</html>

@@ -1,0 +1,38 @@
+#menuPrincipal {
+	
+	background-color: #f75c03;
+	height: 60px;
+	margin-bottom: 35px;
+	
+}
+.selected {
+	background-color:salmon;
+	color:white;
+}
+
+#tablaPlazas {
+	
+	width: 65%;
+	margin-left:130px;
+	
+}
+
+#menuAcciones{
+	padding-top:140px;
+	padding-left:20px;
+	width:50px;
+	height:300px;
+	cursor:pointer ;
+		
+}
+
+.size-12{
+	font-size : 72px;
+	color: #86bbd8;
+}
+
+tbody tr:hover{
+	background-color: salmon;
+	color:white;
+}
+

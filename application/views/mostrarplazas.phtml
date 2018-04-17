@@ -1,0 +1,133 @@
+<div class="grid-x">
+
+
+<div class="large-8 cell" id="tablaPlazas">
+<table >
+	<thead>
+		<tr>
+			<th width="100">ID PLAZA</th>
+			<th width="150">NOMBRE PLAZA</th>
+			<th width="150">DESCRIPCION</th>
+			<th width="150">CIUDAD</th>
+			<th width="150">ESTADO</th>
+		</tr> 
+	</thead>
+	<tbody>
+	<?php 
+	
+	foreach($plazas as $key => $row)
+	    
+				echo "<tr>
+					<td> $row[ID_PLAZA]</td> 
+					<td> $row[NOMBRE]</td> 
+					<td> $row[DESCRIPCION]</td> 
+                    <td> $row[CIUDAD]</td> 
+                    <td> $row[ESTADO]</td> 
+                    
+				</tr>";
+		?>
+		</tbody>
+	</table>
+</div> 
+
+<div class="large-4 cell" id="menuAcciones">
+<i id="agregar" class="fi-burst-new size-12"></i>
+<i id="consultar" class="fi-magnifying-glass size-12"></i>
+<i id="modificar" class="fi-clipboard-pencil size-12"></i>
+<i id="eliminar" class="fi-page-delete size-12"></i>
+<i id="imprimir" class="fi-print size-12"></i>
+</div>
+</div>
+
+<div id="dialog"></div>
+	<script type="text/javascript">
+		
+		$("tbody tr").click(function () {
+		    $('.selected').removeClass('selected');
+		    $(this).addClass("selected");
+		});
+
+		$("#menuAcciones i").click(function(){
+			//alert($(this)[0].id);
+			if($('.selected td:first-of-type')[0]){
+				var idPlaza = $('.selected td:first-of-type')[0].innerText;
+			    var accion = $(this)[0].id;
+			   
+				//alert(accion);
+
+				    switch(accion) {
+			    case "agregar":
+
+			    	$("#dialog").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialog").dialog("open");
+				    $("#dialog").load("application/views/agregarplaza.phtml");
+			        
+			        break;
+			    case "consultar":
+			    	$("#dialog").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialog").dialog("open");
+			    	$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:'Plazas', a:'consulta', id:idPlaza},
+						success: function(response){
+							
+							$("#dialog").html(response);
+						}//success
+					});//ajax
+			        break;
+
+			    case "modificar":
+			    	
+			    	$("#dialog").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialog").dialog("open");
+			    	$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:'Plazas', a:'llenarFormaEditar', id:idPlaza},
+						success: function(response){
+							
+							$("#dialog").html(response);
+						}//success
+					});//ajax
+
+			    	
+			        break;
+			    case "eliminar":
+				    
+				    var id = $(".selected td").first()[0].innerText;
+					
+			    	$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:'Plazas', a:'delete', id:id},
+						success: function(response){
+							
+							$("#contenidos").html(response);
+						}//success
+					});//ajax
+			        break;
+			    case "imprimir":
+			        break;
+
+
+				  default:
+			        alert("default");
+			} 
+			    
+			    
+				}
+			else {
+
+			    var accion = $(this)[0].id;
+				
+					if(accion === "agregar") {$("#dialog").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialog").dialog("open");
+				    $("#dialog").load("application/views/agregarplaza.phtml");
+							}
+				
+				}
+ 
+			});
+
+		</script>
