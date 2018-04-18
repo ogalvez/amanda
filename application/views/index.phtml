@@ -112,16 +112,15 @@
 
 			}
 			
-			function enviarForma(controller, action){				
+			function enviarAlta(){				
 				var vacios = validarVacios();
 				if(vacios === true) {
 					var formaPlaza = new FormData($('#formaAltaPlaza')[0]);
 					//alert(formaPlaza.val);
 					 
-					formaPlaza.append("c", controller);
-					formaPlaza.append("a", action);
-					alert(controller + " " + action)
-					alert(formaPlaza);
+					formaPlaza.append("c", 'Plazas');
+					formaPlaza.append("a", 'insert');
+					
 					$.ajax({
 						type: "POST",
 						async:true,
@@ -134,9 +133,9 @@
 							$("#dialog").dialog("open");
 							$("#dialog").html("hola");
 						},
-						data: {c:'Plazas' , a:'update'},
+						data: formaPlaza,
 						//cache:false, 
-						//contentType:false,
+						contentType:false,
 						processData:false
 					}
 					);
@@ -148,7 +147,7 @@
 				}
 
 			}
-			
+
 		
 		
 		</script>

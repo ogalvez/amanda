@@ -14,19 +14,13 @@
     	
     	public function updatePlaza($id, $nombre, $descripcion , $ciudad, $estado){
     	   //$prepareStatement = $this->db->prepare("UPDATE PLAZAS SET nombre = :nombre, descripcion = :descripcion, ciudad = :ciudad, estado = :estado WHERE id_plaza = :id");  
-    	  // $sql = "UPDATE PLAZAS SET nombre = ?, descripcion = ?, ciudad = ?, estado = ? WHERE id_plaza = ?";
-    	   $sql = "INSERT INTO PLAZAS VALUES (null,'uno','dos','tres','cuatro')";
-    	   if($this->db->query($sql )) {
-    	       $plazas = $this->db->getAll($this->table);
-    	       return $plazas;
-    	   }
+    	   $sql = "UPDATE $this->table SET nombre = ?, descripcion = ?, ciudad = ?, estado = ? WHERE id_plaza = ?";
+    	  // $sql = "INSERT INTO PLAZAS VALUES (null,'uno','dos','tres','cuatro')";
+    	   $this->db->query($sql,$nombre, $descripcion , $ciudad, $estado,$id);
+    	   $plazas = $this->db->getAll($this->table);
+    	    return $plazas;
     	   
-    	   else {
-    	       return $sql;
-    	   }
-    	  //  $plazas  = 1;
-    	    
-    	   //return $plazas;
+    	
     	   
     	}//updateSistemas */
     
