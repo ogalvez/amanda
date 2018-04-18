@@ -23,23 +23,23 @@
 		<option value="Guerrero">Guerrero</option>
 		<option value="Hidalgo">Hidalgo</option>
 		<option value="Jalisco">Jalisco</option>
-		<option value="Mexico">Mexico</option>
-		<option value="Michoacan">Michoacan de Ocampo</option>
+		<option value="M&eacute;xico">M&eacute;xico</option>
+		<option value="Michoac&aacute;n">Michoac&aacute;n de Ocampo</option>
 		<option value="Morelos">Morelos</option>
 		<option value="Nayarit">Nayarit</option>
-		<option value="Nuevo Leon">Nuevo Leon</option>
+		<option value="Nuevo Le&oacute;n">Nuevo Le&oacute;n</option>
 		<option value="Oaxaca">Oaxaca</option>
 		<option value="Puebla">Puebla</option>
-		<option value="Queretaro">Queretaro</option>
+		<option value="Quer&eacute;taro">Quer&eacute;taro</option>
 		<option value="Quintana Roo">Quintana Roo</option>
-		<option value="San Luis Potosi">San Luis Potosi</option>
+		<option value="San Luis Potos&iacute;">San Luis Potos&iacute;</option>
 		<option value="Sinaloa">Sinaloa</option>
 		<option value="Sonora">Sonora</option>
 		<option value="Tabasco">Tabasco</option>
 		<option value="Tamaulipas">Tamaulipas</option>
 		<option value="Tlaxcala">Tlaxcala</option>
 		<option value="Veracruz">Veracruz</option>
-		<option value="Yucatan">Yucatan</option>
+		<option value="Yucat&aacute;n">Yucat&aacute;n</option>
 		<option value="Zacatecas">Zacatecas</option>
 	</select>
 	<button id="enviarEditar" onclick="updatePlaza(); return false"class="button">Enviar</button>
@@ -60,10 +60,6 @@ function updatePlaza(){
 					descripcion: formaPlaza.get("descripcion") , 
 					ciudad:formaPlaza.get("ciudad") , 
 					estado :  formaPlaza.get("estado")};
-	
-										
-
-
 	$.ajax({
         type: "POST",
         url: "index.php",
