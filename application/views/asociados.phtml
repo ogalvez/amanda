@@ -1,0 +1,330 @@
+<div class="w3-row" style="max-width: 750px; margin: 25px auto">
+    <h3>Desarrollos</h3>
+    <div class="w3-col l11">
+        <table class="w3-table w3-centered">
+            <tr class="w3-blue">
+                <th>Código</th>
+                <th>Nombre</th>
+            </tr>
+            <tbody>
+            <?php
+                foreach($result as $key => $row)
+                    echo "<tr data-id='$row[CODIGO_DESARROLLO]'>
+                        <td>$row[CODIGO_DESARROLLO]</td> 
+                        <td>$row[NOMBRE]</td>
+                    </tr>";
+            ?>
+            </tbody>
+        </table>
+    </div><!-- w3-col -->
+    <div class="w3-col l1">
+        <div class="w3-sidebar w3-bar-block" style="width:70px" >
+            <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('modalAlta').style.display='block'"><i class="fa fa-plus-circle w3-xxlarge"></i></a> 
+            <a href="#delete" class="w3-bar-item w3-button actionButtons"><i class="fa fa-times-circle w3-xxlarge"></i></a> 
+            <a href="#update" class="w3-bar-item w3-button actionButtons"><i class="fa fa-edit w3-xxlarge"></i></a> 
+            <a href="#consult" class="w3-bar-item w3-button actionButtons"><i class="fa fa-eye w3-xxlarge"></i></a>
+            <a href="#" class="w3-bar-item w3-button" id="btnExport"><i class="fa fa-file-pdf-o w3-xxlarge"></i></a> 
+        </div><!-- sidebar -->
+    </div><!-- w3-col -->
+</div><!-- w3-row -->
+<div id="modalAlta" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container"> 
+            <span onclick="document.getElementById('modalAlta').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h2>Alta de desarrollos</h2>
+        </header>
+        <div class="w3-container">
+            <p><b>Saldos iniciales</b></p>
+            <label>Nombre *</label>
+            <input class="w3-input w3-border" type="text" id="txtNombre">
+            <label>Razón social *</label>
+            <input class="w3-input w3-border" type="text" id="txtRazon">
+            <label>Calle *</label>
+            <input class="w3-input w3-border" type="text" id="txtCalle">
+            <label># interior *</label>
+            <input class="w3-input w3-border" type="text" id="txtInterior">
+            <label># exterior *</label>
+            <input class="w3-input w3-border" type="text" id="txtExterior">
+            <label>C.P *</label>
+            <input class="w3-input w3-border" type="text" id="txtCP">
+            <label>Colonia *</label>
+            <input class="w3-input w3-border" type="text" id="txtColonia">
+            <label>Localidad *</label>
+            <input class="w3-input w3-border" type="text" id="txtLocalidad">
+            <label>Municipio *</label>
+            <input class="w3-input w3-border" type="text" id="txtMunicipio">
+            <label>Estado *</label>
+            <input class="w3-input w3-border" type="text" id="txtEstado">
+            <label>País *</label>
+            <input class="w3-input w3-border" type="text" id="txtPais">
+            <label>R.F.C *</label>
+            <input class="w3-input w3-border" type="text" id="txtRFC">
+            <label>Teléfono *</label>
+            <input class="w3-input w3-border" type="text" id="txtTelefono">
+            <label>Req Id Trib *</label>
+            <input class="w3-input w3-border" type="text" id="txtIdTrib">
+            <label>Página web *</label>
+            <input class="w3-input w3-border" type="text" id="txtPaginaWeb">
+            <label>Correo electrónico *</label>
+            <input class="w3-input w3-border" type="text" id="txtCorreo">
+            <label>Giro *</label>
+            <input class="w3-input w3-border" type="text" id="txtGiro">
+            <button class="w3-button w3-green w3-block w3-margin-bottom" id="btnAgregar">Agregar</button>
+        </div>
+    </div>
+</div><!-- w3-modal -->
+<div id="modalUpdate" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container"> 
+            <span onclick="document.getElementById('modalUpdate').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h2>Edición de desarrollos</h2>
+        </header>
+        <div class="w3-container">
+            <p><b>Saldos iniciales</b></p>
+            <label>Nombre *</label>
+            <input class="w3-input w3-border edit w3-hide" type="text" id="txtIdEdita" value="">
+            <input class="w3-input w3-border edit" type="text" id="txtNombreEdita" value="">
+            <label>Razón social *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtRazonEdita" value="">
+            <label>Calle *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtCalleEdita" value="">
+            <label># interior *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtInteriorEdita" value="">
+            <label># exterior *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtExteriorEdita" value="">
+            <label>C.P *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtCPEdita" value="">
+            <label>Colonia *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtColoniaEdita" value="">
+            <label>Localidad *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtLocalidadEdita" value="">
+            <label>Municipio *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtMunicipioEdita" value="">
+            <label>Estado *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtEstadoEdita" value="">
+            <label>País *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtPaisEdita" value="">
+            <label>R.F.C *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtRFCEdita" value="">
+            <label>Teléfono *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtTelefonoEdita" value="">
+            <label>Req Id Trib *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtIdTribEdita" value="">
+            <label>Página web *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtPaginaWebEdita" value="">
+            <label>Correo electrónico *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtCorreoEdita" value="">
+            <label>Giro *</label>
+            <input class="w3-input w3-border edit" type="text" id="txtGiroEdita" value="">
+            <button class="w3-button w3-green w3-block w3-margin-bottom" id="btnGuardar">Guardar cambios</button>
+        </div>
+    </div>
+</div><!-- w3-modal -->
+<div id="modalConsult" class="w3-modal">
+    <div class="w3-modal-content">
+        <header class="w3-container"> 
+            <span onclick="document.getElementById('modalConsult').style.display='none'" class="w3-button w3-display-topright">&times;</span>
+            <h2>Consulta de desarrollos</h2>
+        </header>
+        <div class="w3-container">
+            <p><b>Saldos iniciales</b></p>
+            <label>Nombre *</label>
+            <input class="w3-input w3-border editC w3-hide" type="text" disabled value="">
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Razón social *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Calle *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label># interior *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label># exterior *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>C.P *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Colonia *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Localidad *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Municipio *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Estado *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>País *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>R.F.C *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Teléfono *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Req Id Trib *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Página web *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Correo electrónico *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <label>Giro *</label>
+            <input class="w3-input w3-border editC" type="text" disabled value="">
+        </div>
+    </div>
+</div><!-- w3-modal -->
+<script>
+    $(document).ready(function(){
+        var regexMail = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+        
+        $("tbody tr").click(function () {
+            $('.selected').removeClass('selected');
+            $(this).addClass("selected");
+        });//tbody tr
+        
+        $(".actionButtons").click(function(e){
+            e.preventDefault();
+            var x = document.getElementsByClassName('selected');
+            if(x.length === 0)
+                alert("selecciona un tr");
+            else
+            {
+                var action = $(this).attr('href').substring(1);
+                var id = x[0].getAttribute("data-id");
+                switch(action)
+                {
+                    case 'delete':
+                        $.ajax({
+                            type: "POST",
+                            url: 'index.php',
+                            data: {c:"Desarrollos", a:"delete", id:id},
+                            success: function(response){
+				$("#contenidos").html(response);
+                            }//success
+			});//ajax
+                    break;
+                    case 'update':
+                        $.ajax({
+                            type: "POST",
+                            url: 'index.php',
+                            data: {c:"Desarrollos", a:"retrive", id:id},
+                            success: function(response){
+                                var inputs = document.getElementsByClassName("edit");
+                                var obj = JSON.parse(response);
+                                var idx = 0;
+                                for (var i in obj)
+                                    for (var j in obj[i])
+                                        inputs[idx++].setAttribute("value", obj[i][j]);
+				document.getElementById('modalUpdate').style.display = 'block';
+                            }//success
+			});//ajax
+                    break;
+                    case 'consult':
+                        $.ajax({
+                            type: "POST",
+                            url: 'index.php',
+                            data: {c:"Desarrollos", a:"retrive", id:id},
+                            success: function(response){
+                                var inputs = document.getElementsByClassName("editC");
+                                var obj = JSON.parse(response);
+                                var idx = 0;
+                                for (var i in obj)
+                                    for (var j in obj[i])
+                                        inputs[idx++].setAttribute("value", obj[i][j]);
+				document.getElementById('modalConsult').style.display = 'block';
+                            }//success
+			});//ajax
+                    break;
+                }//switch
+            }//else
+        });//actionButtons a
+        
+        $("#btnExport").click(function(){
+            $.ajax({
+                type: "POST",
+                url: 'index.php',
+                data: {c:"Desarrollos", a:"export"},
+                success: function(){
+                    window.open('public/files/desarrollos.pdf', '_blank');
+                }//success
+            });//ajax
+        });//btnExport
+        
+        $("#btnAgregar").click(function(){
+            if(!emptyFields("modalAlta"))
+            {
+                var nombre = $("#txtNombre").val().trim().toUpperCase();
+                var razon = $("#txtRazon").val().trim().toUpperCase();
+                var calle = $("#txtCalle").val().trim().toUpperCase();
+                var interior = $("#txtInterior").val().trim().toUpperCase();
+                var exterior = $("#txtExterior").val().trim().toUpperCase();
+                var cp = $("#txtCP").val().trim().toUpperCase();
+                var colonia = $("#txtColonia").val().trim().toUpperCase();
+                var localidad = $("#txtLocalidad").val().trim().toUpperCase();
+                var municipio = $("#txtMunicipio").val().trim().toUpperCase();
+                var estado = $("#txtEstado").val().trim().toUpperCase();
+                var pais = $("#txtPais").val().trim().toUpperCase();
+                var rfc = $("#txtRFC").val().trim().toUpperCase();
+                var telefono = $("#txtTelefono").val().trim().toUpperCase();
+                var idTrib = $("#txtIdTrib").val().trim().toUpperCase();
+                var paginaWeb = $("#txtPaginaWeb").val().trim().toUpperCase();
+                var correo = $("#txtCorreo").val().trim().toUpperCase();
+                var giro  = $("#txtGiro").val().trim().toUpperCase();
+                var obj = {nombre:nombre, razon:razon, calle:calle, interior:interior, exterior:exterior, cp:cp, colonia:colonia, localidad:localidad, municipio:municipio, estado:estado, pais:pais, rfc:rfc, telefono:telefono, idTrib:idTrib, paginaWeb:paginaWeb, correo:correo, giro:giro, c:"Desarrollos", a:"insert"};
+                $.ajax({
+                    type: "POST",
+                    url: "index.php",
+                    data: obj,
+                    success: function(response){
+                        $("#contenidos").html(response);
+                    }//success
+                });//ajax
+            }//if
+            else
+                alert("TODOS LOS CAMPOS SON OBLIGATORIOS.");
+        });//btnAgregar
+        
+        $("#btnGuardar").click(function(){
+            if(!emptyFields("modalUpdate"))
+            {
+                var id = $("#txtIdEdita").val();
+                var nombre = $("#txtNombreEdita").val().trim().toUpperCase();
+                var razon = $("#txtRazonEdita").val().trim().toUpperCase();
+                var calle = $("#txtCalleEdita").val().trim().toUpperCase();
+                var interior = $("#txtInteriorEdita").val().trim().toUpperCase();
+                var exterior = $("#txtExteriorEdita").val().trim().toUpperCase();
+                var cp = $("#txtCPEdita").val().trim().toUpperCase();
+                var colonia = $("#txtColoniaEdita").val().trim().toUpperCase();
+                var localidad = $("#txtLocalidadEdita").val().trim().toUpperCase();
+                var municipio = $("#txtMunicipioEdita").val().trim().toUpperCase();
+                var estado = $("#txtEstadoEdita").val().trim().toUpperCase();
+                var pais = $("#txtPaisEdita").val().trim().toUpperCase();
+                var rfc = $("#txtRFCEdita").val().trim().toUpperCase();
+                var telefono = $("#txtTelefonoEdita").val().trim().toUpperCase();
+                var idTrib = $("#txtIdTribEdita").val().trim().toUpperCase();
+                var paginaWeb = $("#txtPaginaWebEdita").val().trim().toUpperCase();
+                var correo = $("#txtCorreoEdita").val().trim().toUpperCase();
+                var giro  = $("#txtGiroEdita").val().trim().toUpperCase();
+                var obj = {id:id, nombre:nombre, razon:razon, calle:calle, interior:interior, exterior:exterior, cp:cp, colonia:colonia, localidad:localidad, municipio:municipio, estado:estado, pais:pais, rfc:rfc, telefono:telefono, idTrib:idTrib, paginaWeb:paginaWeb, correo:correo, giro:giro, c:"Desarrollos", a:"update"};
+                $.ajax({
+                    type: "POST",
+                    url: "index.php",
+                    data: obj,
+                    success: function(response){
+                        $("#contenidos").html(response);
+                    }//success
+                });//ajax
+            }//if
+            else
+                alert("TODOS LOS CAMPOS SON OBLIGATORIOS.");
+        });//btnGuardar
+        
+        function emptyFields(parent){
+            var bandera = false;
+            $("#" + parent + "input").each(function() {
+                if ($(this).val().trim() == "")
+                    bandera = true;
+            });
+            return bandera;
+        }//emptyFields
+    });//document
+</script>
+<style>
+    .selected {
+	background-color: blue;
+	color: white;
+    }
+</style>
