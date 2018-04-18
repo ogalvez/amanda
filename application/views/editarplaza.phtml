@@ -1,6 +1,4 @@
-<html>
-<meta charset="utf-8"/>
-<form id="formaAltaPlaza">
+<form id="formaEditarPlaza">
 	<input type="hidden" name="id" id="idPlaza" value="<?php echo $plaza[0]['ID_PLAZA']; ?>"/> 
 	<label for="nombre">Nombre	de la plaza</label> 
 	<input placeholder="Nombre de la Plaza"	type="text" name="nombre" id="nombrePlaza" value="<?php echo $plaza[0]['NOMBRE'];?>" /> 
@@ -8,7 +6,7 @@
 	<input placeholder="Descripcion de la plaza" type="text" name="descripcion" id="descripcionPlaza"  value="<?php echo $plaza[0]['DESCRIPCION'];?>" /> 
 	<label for="ciudad">Ciudad</label>
 	<input placeholder="Ciudad" type="text" name="ciudad" id="ciudadPlaza"  value="<?php echo $plaza[0]['CIUDAD'];?>" />
-	<label for="estadoPlaza">Estado Plaza</label> 
+	<label for="estadoPlaza">EDO Plaza</label> 
 	<select  name="estado">
 		<option value="">Selecciona Estado...</option>
 		<option value="Aguascalientes">Aguascalientes</option>
@@ -44,16 +42,43 @@
 		<option value="Yucatan">Yucatan</option>
 		<option value="Zacatecas">Zacatecas</option>
 	</select>
-	<button id="enviarEditar" onclick="enviarForma('Plazas','update');" class="button">Enviar</button>
+	<button id="enviarEditar" onclick="updatePlaza(); return false"class="button">Enviar</button>
 	<button class="button" type="reset" value="Reset">Borrar Campos</button>
 </form>
  <script>
 
 $('select').val("<?php echo $plaza[0]['ESTADO'];?>");
 
+function updatePlaza(){
+	var formaPlaza = new FormData($('#formaEditarPlaza')[0]);
+		//alert(formaPlaza.length);
+		
+	var jsonData = {c:"Plazas", 
+					a:"update",
+					id: formaPlaza.get("id") , 
+					nombre: formaPlaza.get("nombre") , 
+					descripcion: formaPlaza.get("descripcion") , 
+					ciudad:formaPlaza.get("ciudad") , 
+					estado :  formaPlaza.get("estado")};
+	
+										
+
+
+	$.ajax({
+        type: "POST",
+        url: "index.php",
+        data: jsonData,
+        success: function(response){
+            $('#dialog').dialog("close");
+            $("#contenidos").html(response);
+        }//success
+    });//ajax
+	
+	}			
+
+
  </script>
 
 
-</html>
 
 
