@@ -65,20 +65,11 @@
      	*/
 
     	public function query($query){
-    		$args = func_get_args();
-    		array_shift($args);
-    		$reponse = parent::prepare($query);
-    		$exec= $reponse->execute($args);
-    		
-    		if($exec) {
-    		    return $reponse;
-    		}
-    		
-    		else {
-    		    $json = json_encode($reponse->errorInfo());
-    		    return $json;
-    		}
-    		
+    	    $args = func_get_args();
+    	    array_shift($args);
+    	    $reponse = parent::prepare($query);
+    	    $reponse->execute($args);
+    	    return $reponse;
     	}//query
     
     	public function insecureQuery($query){
