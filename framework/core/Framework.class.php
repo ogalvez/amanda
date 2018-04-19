@@ -130,6 +130,29 @@
    				            $controller->$action_name();
    				    }//switch
    				    break;
+   				case 'Empresas':
+   				    switch(ACTION)
+   				    {
+   				        case 'insert':
+   				            $controller->$action_name($_POST['clave'], $_POST['descripcion'], $_POST['tipo'],$_POST['plaza']);
+   				            break;
+   				        case 'delete':
+   				            $controller->$action_name($_POST['id']);
+   				            break;
+   				        case 'update':
+   				            $controller->$action_name($_POST['id'], $_POST['nombre'], $_POST['descripcion'], $_POST['ciudad'], $_POST['estado']);
+   				            break;
+   				            
+   				        case 'llenarFormaEditar':
+   				            $controller->$action_name($_POST['id']);
+   				            break;
+   				        case 'consulta':
+   				            $controller->$action_name($_POST['id']);
+   				            break;
+   				        default:
+   				            $controller->$action_name();
+   				    }//switch
+   				    break;
    				case 'Desarrollos':
    				    switch(ACTION)
    				    {
