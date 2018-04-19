@@ -196,7 +196,31 @@
    				        default:
    				            $controller->$action_name();
    				    }//switch
-   				    break;
+   				break;
+                                case 'Asociados':
+                                    $params = array();
+   				    switch(ACTION)
+   				    {
+   				        case 'insert':
+                                            parse_str($_POST['str'], $params);
+   				            $controller->$action_name($params);
+   				        break;
+                                        case 'update':
+   				            $controller->$action_name($_POST['id'], $_POST['nombre']);
+   				        break;
+   				        case 'delete':
+   				            $controller->$action_name($_POST['id']);
+   				        break;
+   				        case 'retrive':
+   				            $controller->$action_name($_POST['id']);
+   				        break;
+                                        case 'export':
+   				            $controller->$action_name();
+   				        break;
+   				        default:
+   				            $controller->$action_name();
+   				    }//switch
+   				break;
    				default:
    					$controller->$action_name();
    			}//switch
