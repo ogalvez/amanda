@@ -1,123 +1,132 @@
 <!doctype html>
 <html lang="es">
-	<head>
-		<title>MVC Template</title>
-		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
-		<script src="public/js/jquery.min.js"></script>
-		<script src="public/js/vendor/foundation.js"></script>
-		<link rel="stylesheet" href="public/css/w3.css">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-		<link rel="stylesheet" href="public/css/foundation.css">
-        <link rel="stylesheet" href="public/css/app.css">
-        <link rel="stylesheet" href="public/jqui/jquery-ui.css">
-        <script src="public/jqui/jquery-ui.js"></script>	
-        <link rel="stylesheet" href="public/css/estilo.css">	
-        <link rel="stylesheet" href="public/css/app.css">	
-        <link rel="stylesheet" href="public/css/icons/foundation-icons.css">
-	</head>
-	<body>
-		<div class="nav" id="menuPrincipal"> 
-			<ul class="dropdown menu" data-dropdown-menu>
-              <li>
-              	<a href="#plazas">Plazas</a>
-                <ul class="menu" id="Plazas">
-                  <li><a class="submenuitem" href="#">Agregar</a></li>
-                  <li><a class="submenuitem" href="#">Lista</a></li>
-                  <!-- ... -->
-                </ul>
-              </li>
-               <li>
-              	<a href="#empresas">Empresas</a>
-                <ul class="menu" id="Empresas">
-                  <li><a class="submenuitem" href="#">Agregar</a></li>
-                  <li><a class="submenuitem" href="#">Lista</a></li>
-                  <!-- ... -->
-                </ul>
-              </li>
-              <li>
-              	<a href="#desarrollos">Desarrollos</a>
-                <ul class="menu" id="Desarrollos">
-                  <li><a class="submenuitem" href="#">Modificar</a></li>
-                  <li><a class="submenuitem" href="#">Lista</a></li>
-                  <!-- ... -->
-                </ul>
-              </li>
-               <li>
-              	<a href="#giros">Giros</a>
-              </li>
-        </ul>
-  			
-  			
-		</div>
-		<div   id="contenidos">
+<head>
+	<title>MVC Template</title>
+	<meta http-equiv="Content-Type"  />
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<script src="public/js/jquery.min.js"></script>
+	<script src="public/js/vendor/foundation.js"></script>
+	<link rel="stylesheet" href="public/css/w3.css">
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+	<link rel="stylesheet" href="public/css/foundation.css">
+	<link rel="stylesheet" href="public/css/app.css">
+	<link rel="stylesheet" href="public/jqui/jquery-ui.css">
+	<script src="public/jqui/jquery-ui.js"></script>	
+	<link rel="stylesheet" href="public/css/estilo.css">	
+	<link rel="stylesheet" href="public/css/app.css">	
+	<link rel="stylesheet" href="public/css/icons/foundation-icons.css">
+</head>
+<body>
+	<div class="w3-bar w3-large" style="background-color: #EF7A20;" >
+		<a href="index.php" class="w3-bar-item w3-mobile" style="padding: 10px 20px"><img src="public/images/alfabai_b.png"></a>
+		<span class="w3-bar-item  w3-right w3-padding-16 w3-mobile"><i class="fa fa-envelope"></i> Correo: soporte.web@alfabai.com.mx</span>
+		<span class="w3-bar-item  w3-right w3-padding-16 w3-mobile"><i class="fa fa-phone-square"></i> Teléfono: 333 361 7279</span>
+	</div>
+	<div class="w3-bar w3-larg" style="background-color: #067BC2; color: white">
+		<span class="w3-bar-item w3-text-whit w3-padding-1 w3-mobile"><i class="fa fa-globe"></i> Sistema administrativo de catalogos del Sistema Maestro</span>
+		<a href="php/model/sesionClose.php" class="w3-bar-item w3-right w3-padding-1 w3-mobile" style="color: white"><i class="fa fa-power-off"></i> Salir</a>
+		
+	</div>
+	<div class="nav" id="menuPrincipal"> 
+		<ul class="dropdown menu" data-dropdown-menu>
+			<li>
+				<a href="#plazas">Plazas</a>
+				<ul class="menu" id="Plazas">
+					<li><a class="submenuitem" href="#">Agregar</a></li>
+					<li><a class="submenuitem" href="#">Lista</a></li>
+					<!-- ... -->
+				</ul>
+			</li>
+			<li>
+				<a href="#empresas">Empresas</a>
+				<ul class="menu" id="Empresas">
+					<li><a class="submenuitem" href="#">Agregar</a></li>
+					<li><a class="submenuitem" href="#">Lista</a></li>
+					<!-- ... -->
+				</ul>
+			</li>
+			<li>
+				<a href="#desarrollos">Desarrollos</a>
+			</li>
+			<li>
+				<a href="#giros">Giros</a>
+			</li>
+			<li>
+				<a href="#giros">Asociados</a>
+			</li>
+		</ul>
+		
+		
+	</div>
+	<div   id="contenidos">
 
-		</div>
-		<script type="text/javascript">
-			$(document).ready(function(){
-				var controller = "default";
-				$(document).foundation();
-				$('ul.dropdown > li > a[href^="#"]').click(function(){
-					 controller = $(this).text();
+	</div>
+	<script type="text/javascript">
+		$(document).ready(function(){
+			var controller = "default";
+			$(document).foundation();
+			$('ul.dropdown > li > a[href^="#"]').click(function(){
+				controller = $(this).text();
 					 //alert(controller);
 					 
-					
-					$.ajax({
-						type: "POST",
-						url: 'index.php',
-						data: {c:controller},
-						success: function(response){
-							$("#contenidos").html(response);
+					 
+					 $.ajax({
+					 	type: "POST",
+					 	url: 'index.php',
+					 	data: {c:controller},
+					 	success: function(response){
+					 		$("#contenidos").html(response);
 						}//success
 					});//ajax
 				});//nav a
 
-				
-				$(".is-dropdown-submenu-item").click(function(){
+			
+			$(".is-dropdown-submenu-item").click(function(){
 
-					var parent= $(this).parent()[0].id;
-					var action = $(this).text();
+				var parent= $(this).parent()[0].id;
+				var action = $(this).text();
 
 
-					$.ajax({
-						type: "POST",
-						url: 'index.php',
-						data: {c:parent , a:action},
-						success: function(response){
-							$("#contenidos").html(response);
+				$.ajax({
+					type: "POST",
+					url: 'index.php',
+					data: {c:parent , a:action},
+					success: function(response){
+						$("#contenidos").html(response);
 						}//success
 					});//ajax
-					});
+			});
 			});//document
 
 
 
-			function validarVacios(){
-				var x = $("#formaAltaPlaza")[0].length ; 
-				var vacios = 0;
-				for (var i= 0 ; i < x-2 ; i++){
+		function validarVacios(){
+			var x = $("#formaAltaPlaza")[0].length ; 
+			var vacios = 0;
+			for (var i= 0 ; i < x-2 ; i++){
 
-					if($("#formaAltaPlaza")[0][i].value.trim() == ""){
-						vacios++;
-					}
-
-				}
-
-				if (vacios > 0) {
-					return false;
-				}
-				else {
-					return true;
+				if($("#formaAltaPlaza")[0][i].value.trim() == ""){
+					vacios++;
 				}
 
 			}
-			
-			function enviarAlta(){				
-				var vacios = validarVacios();
-				if(vacios === true) {
-					var formaPlaza = new FormData($('#formaAltaPlaza')[0]);
+
+			if (vacios > 0) {
+				return false;
+			}
+			else {
+				return true;
+			}
+
+		}
+		
+		function enviarAlta(){				
+			var vacios = validarVacios();
+			if(vacios === true) {
+				var formaPlaza = new FormData($('#formaAltaPlaza')[0]);
 					//alert(formaPlaza.val);
-					 
+					
 					formaPlaza.append("c", 'Plazas');
 					formaPlaza.append("a", 'insert');
 					
@@ -126,8 +135,8 @@
 						async:true,
 						url:"index.php",		
 						success:function(data){
-								$("#dialog").dialog("close");
-								$("#contenidos").html(data);							
+							$("#dialog").dialog("close");
+							$("#contenidos").html(data);							
 						},
 						error:function(request,status,error){
 							$("#dialog").dialog("open");
@@ -148,9 +157,9 @@
 
 			}
 
-		
-		
+			
+			
 		</script>
 		
 	</body>
-</html>
+	</html>
