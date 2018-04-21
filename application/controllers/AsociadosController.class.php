@@ -14,11 +14,11 @@
             include  CURR_VIEW_PATH . "asociados.phtml";
     	}//insertAction
         
-        public function updateAction($id, $nombre){
-            $model = new GirosModel("giros_desarrollo");
-            $result = $model->updateGiros($id, $nombre);
+        public function updateAction($params){
+            $model = new AsociadosModel("asociados");
+            $result = $model->updateAsociados($params);
             // Load View template
-            include  CURR_VIEW_PATH . "giros.phtml";
+            include  CURR_VIEW_PATH . "asociados.phtml";
     	}//updateAction
     
     	public function deleteAction($id){
@@ -29,8 +29,8 @@
     	}//deleteAction
     
     	public function retriveAction($id){
-            $model = new GirosModel("giros_desarrollo");
-            $result = $model->retriveGiros($id);
+            $model = new AsociadosModel("asociados");
+            $result = $model->retriveAsociados($id);
             echo json_encode($result);
     	}//retriveAction
         
