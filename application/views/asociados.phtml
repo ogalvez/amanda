@@ -19,7 +19,7 @@
     </div><!-- w3-col -->
     <div class="w3-col l1">
         <div class="w3-sidebar w3-bar-block" style="width:70px" >
-            <a href="#" class="w3-bar-item w3-button" onclick="document.getElementById('modalAlta').style.display='block'"><i class="fa fa-plus-circle w3-xxlarge"></i></a> 
+            <a href="#" class="w3-bar-item w3-button" id="btnModalInsert"><i class="fa fa-plus-circle w3-xxlarge"></i></a> 
             <a href="#delete" class="w3-bar-item w3-button actionButtons"><i class="fa fa-times-circle w3-xxlarge"></i></a> 
             <a href="#update" class="w3-bar-item w3-button actionButtons"><i class="fa fa-edit w3-xxlarge"></i></a> 
             <a href="#consult" class="w3-bar-item w3-button actionButtons"><i class="fa fa-eye w3-xxlarge"></i></a>
@@ -30,219 +30,131 @@
 <div id="modalAlta" class="w3-modal">
     <div class="w3-modal-content">
         <header class="w3-container"> 
-            <span onclick="document.getElementById('modalAlta').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <h2>Alta de asociados</h2>
+            <span onclick="document.getElementById('modalAlta').style.display='none'; inputsReset();" class="w3-button w3-display-topright">&times;</span>
+            <h2 id="modalText"> </h2>
         </header>
         <div class="w3-container">
             <form id="formAlta">
                 <p><b>Datos generales del asociado</b></p>
                 <label>Nombres *</label>
-                <input class="w3-input w3-border" type="text" id="txtNombre" name="nombre">
+                <input class="w3-input w3-border w3-hide inputForm" type="text" id="txtIdEdita" name="id">
+                <input class="w3-input w3-border inputForm" type="text" id="txtNombre" name="nombre">
                 <label>Apellido paterno *</label>
-                <input class="w3-input w3-border" type="text" id="txtApellidoP" name="apellidoP">
+                <input class="w3-input w3-border inputForm" type="text" id="txtApellidoP" name="apellidoP">
                 <label>Apellido materno *</label>
-                <input class="w3-input w3-border" type="text" id="txtApellidoM" name="apellidoM">
+                <input class="w3-input w3-border inputForm" type="text" id="txtApellidoM" name="apellidoM">
                 <label>Fecha de nacimiento *</label>
-                <input class="w3-input w3-border" type="text" id="txtNacimiento" name="nacimiento">
+                <input class="w3-input w3-border inputForm" type="text" id="txtNacimiento" name="nacimiento">
                 <label>Edad</label>
-                <input class="w3-input w3-border" type="text" id="txtEdad" name="edad">
+                <input class="w3-input w3-border inputForm" type="text" id="txtEdad" name="edad">
                 <label>Sexo *</label>
-                <input class="w3-input w3-border" type="text" id="txtSexo" name="sexo">
-                <label>Hijos *</label>
-                <input class="w3-check" type="checkbox" id="checkHijos" name="hijos">
+                <input class="w3-input w3-border inputForm" type="text" id="txtSexo" name="sexo">
+                <p>Hijos *
+                <input class="w3-check inputForm" type="checkbox" value="0" id="checkHijos" name="hijos"></p>
                 <label>RFC *</label>
-                <input class="w3-input w3-border" type="text" id="txtRFC" name="rfc">
+                <input class="w3-input w3-border inputForm" type="text" id="txtRFC" name="rfc">
                 <label>CURP *</label>
-                <input class="w3-input w3-border" type="text" id="txtCURP" name="curp">
-                <label>Nacionalidad *</label>
-                <input class="w3-input w3-border" type="text" id="txtNacionalidad" name="nacionalidad">
+                <input class="w3-input w3-border inputForm" type="text" id="txtCURP" name="curp">
                 <label>Lugar de nacimiento *</label>
-                <input class="w3-input w3-border" type="text" id="txtLugarNacimiento" name="lugarNacimiento">
-                <label>Extranjero *</label>
-                <input class="w3-check" type="checkbox" id="checkExtranjero" name="extranjero">
+                <input class="w3-input w3-border inputForm" type="text" id="txtLugarNacimiento" name="lugarNacimiento">
+                <label>Nacionalidad *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtNacionalidad" name="nacionalidad">
                 <label>Estado civil *</label>
-                <input class="w3-input w3-border" type="text" id="checkEstadoCivil" name="estadoCivil">
+                <input class="w3-input w3-border inputForm" type="text" id="checkEstadoCivil" name="estadoCivil">
+                <p>Extranjero *
+                <input class="w3-check inputForm" type="checkbox" value="0" id="checkExtranjero" name="extranjero"></p>
                 <label>Correo electrónico *</label>
-                <input class="w3-input w3-border" type="text" id="txtCorreo" name="correo">
+                <input class="w3-input w3-border inputForm" type="text" id="txtCorreo" name="correo">
                 <label>Teléfono *</label>
-                <input class="w3-input w3-border" type="text" id="txtTelefono" name="telefono">
-                <label>CC *</label>
-                <input class="w3-input w3-border" type="text" id="txtCC" name="cc">
+                <input class="w3-input w3-border inputForm" type="text" id="txtTelefono" name="telefono">
+                <!--<label>CC *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtCC" name="cc">-->
 
                 <p><b>Domicilio del asociado</b></p>
                 <label>Domicilio *</label>
-                <input class="w3-input w3-border" type="text" id="txtDomicilio" name="domicilio">
+                <input class="w3-input w3-border inputForm" type="text" id="txtDomicilio" name="domicilio">
                 <label>Colonia *</label>
-                <input class="w3-input w3-border" type="text" id="txtColonia" name="colonia">
+                <input class="w3-input w3-border inputForm" type="text" id="txtColonia" name="colonia">
                 <label>Delegacion *</label>
-                <input class="w3-input w3-border" type="text" id="txtDelegacion" name="delegacion">
+                <input class="w3-input w3-border inputForm" type="text" id="txtDelegacion" name="delegacion">
                 <label>Ciudad *</label>
-                <input class="w3-input w3-border" type="text" id="txtCiudad" name="ciudad">
+                <input class="w3-input w3-border inputForm" type="text" id="txtCiudad" name="ciudad">
                 <label>Estado *</label>
-                <input class="w3-input w3-border" type="text" id="txtEstado" name="estado">
-                <label>Entre calles *</label>
-                <input class="w3-input w3-border" type="text" id="txtEntreCalles" name="entreCalles">
+                <input class="w3-input w3-border inputForm" type="text" id="txtEstado" name="estado">
+                <label>Entre calles (calle 1) *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtEntreCalles" name="entreCalle1">
+                <label>Entre calles (calle 2) *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtEntreCalles" name="entreCalle2">
                 <label>CP *</label>
-                <input class="w3-input w3-border" type="text" id="txtCP" name="cp">
+                <input class="w3-input w3-border inputForm" type="text" id="txtCP" name="cp">
                 <label>Domicilio fiscal *</label>
-                <input class="w3-input w3-border" type="text" id="txtDomicilioFiscal" name="domicilioFiscal">
+                <input class="w3-input w3-border inputForm" type="text" id="txtDomicilioFiscal" name="domicilioFiscal">
                 <label>CP fiscal *</label>
-                <input class="w3-input w3-border" type="text" id="txtCPFiscal" name="cpFiscal">
+                <input class="w3-input w3-border inputForm" type="text" id="txtCPFiscal" name="cpFiscal">
 
                 <p><b>Configuración para el sistema</b></p>
                 <label>Fecha inicio *</label>
-                <input class="w3-input w3-border" type="text" id="txtFechaInicio" name="fechaInicio">
+                <input class="w3-input w3-border inputForm" type="text" id="txtFechaInicio" name="fechaInicio">
                 <label>Fecha baja *</label>
-                <input class="w3-input w3-border" type="text" id="txtFechaBaja" name="fechaBaja">
-                <label>Causa *</label>
-                <input class="w3-input w3-border" type="text" id="txtCausa" name="causa">
+                <input class="w3-input w3-border inputForm" type="text" id="txtFechaBaja" name="fechaBaja">
+                <!--<label>Causa *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtCausa" name="causa">
                 <label>% CO *</label>
-                <input class="w3-input w3-border" type="text" id="txtCO" name="co">
+                <input class="w3-input w3-border inputForm" type="text" id="txtCO" name="co">
                 <label>Documentos completos *</label>
-                <input class="w3-input w3-border" type="text" id="checkDocumentos" name="documentos">
+                <input class="w3-input w3-border inputForm" type="text" id="checkDocumentos" name="documentos">
                 <label>Generar A *</label>
-                <input class="w3-input w3-border" type="text" id="checkA" name="A">
+                <input class="w3-input w3-border inputForm" type="text" id="checkA" name="A">
                 <label>Generar B *</label>
-                <input class="w3-input w3-border" type="text" id="checkB" name="B">
+                <input class="w3-input w3-border inputForm" type="text" id="checkB" name="B">
                 <label>Generar C *</label>
-                <input class="w3-input w3-border" type="text" id="checkC" name="C">
+                <input class="w3-input w3-border inputForm" type="text" id="checkC" name="C">
 
                 <p><b>Configuración de polizas</b></p>
                 <label>Gastos médicos *</label>
-                <input class="w3-input w3-border" type="text" id="txtGastosMedicosA" name="gastosMedicosA">
-                <input class="w3-input w3-border" type="text" id="txtGastosMedicosB" name="gastosMedicosB">
-                <input class="w3-input w3-border" type="text" id="txtGastosMedicosC" name="gastosMedicosC">
+                <input class="w3-input w3-border inputForm" type="text" id="txtGastosMedicosA" name="gastosMedicosA">
+                <input class="w3-input w3-border inputForm" type="text" id="txtGastosMedicosB" name="gastosMedicosB">
+                <input class="w3-input w3-border inputForm" type="text" id="txtGastosMedicosC" name="gastosMedicosC">
                 <label>Seguro de vida *</label>
-                <input class="w3-input w3-border" type="text" id="txtSeguroVidaA" name="seguroVidaA">
-                <input class="w3-input w3-border" type="text" id="txtSeguroVidaB" name="seguroVidaB">
-                <input class="w3-input w3-border" type="text" id="txtSeguroVidaC" name="seguroVidaC">
+                <input class="w3-input w3-border inputForm" type="text" id="txtSeguroVidaA" name="seguroVidaA">
+                <input class="w3-input w3-border inputForm" type="text" id="txtSeguroVidaB" name="seguroVidaB">
+                <input class="w3-input w3-border inputForm" type="text" id="txtSeguroVidaC" name="seguroVidaC">
 
                 <p><b>Configuración IMSS</b></p>
                 <label>Numero *</label>
-                <input class="w3-input w3-border" type="text" id="txtNumeroIMSS" name="numeroIMSS">
+                <input class="w3-input w3-border inputForm" type="text" id="txtNumeroIMSS" name="numeroIMSS">
                 <label>SD *</label>
-                <input class="w3-input w3-border" type="text" id="txtSD" name="SD">
+                <input class="w3-input w3-border inputForm" type="text" id="txtSD" name="SD">
                 <label>Días *</label>
-                <input class="w3-input w3-border" type="text" id="txtDías" name="dias">
+                <input class="w3-input w3-border inputForm" type="text" id="txtDías" name="dias">
                 <label>Comentario *</label>
-                <input class="w3-input w3-border" type="text" id="txtComentarioIMSS" name="comentarioIMSS">
+                <input class="w3-input w3-border inputForm" type="text" id="txtComentarioIMSS" name="comentarioIMSS">
                 <label>Infonavit *</label>
-                <input class="w3-input w3-border" type="text" id="txtInfonavit" name="infonavit">
-                <input class="w3-input w3-border" type="text" id="txtInfonavitNum" name="infonavitNum">
+                <input class="w3-input w3-border inputForm" type="text" id="txtInfonavit" name="infonavit">
+                <input class="w3-input w3-border inputForm" type="text" id="txtInfonavitNum" name="infonavitNum">-->
 
                 <p><b>Configuración desarrollos</b></p>
                 <label>Desarrollo actual *</label>
-                <input class="w3-input w3-border" type="text" id="txtDesarrollo" name="desarrollo">
+                <input class="w3-input w3-border inputForm" type="text" id="txtDesarrollo" name="desarrollo">
                 <label>Puesto *</label>
-                <input class="w3-input w3-border" type="text" id="txtPuesto" name="puesto">
+                <input class="w3-input w3-border inputForm" type="text" id="txtPuesto" name="puesto">
 
-                <label>Banco y cuenta *</label>
-                <input class="w3-input w3-border" type="text" id="txtBanco" name="banco">
+                <!--<label>Banco y cuenta *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtBanco" name="banco">
                 <label>Comentarios *</label>
-                <input class="w3-input w3-border" type="text" id="txtComentarios" name="comentarios">
+                <input class="w3-input w3-border inputForm" type="text" id="txtComentarios" name="comentarios">-->
             </form>
-            <button class="w3-button w3-green w3-block w3-margin-bottom" id="btnAgregar">Agregar</button>
-        </div>
-    </div>
-</div><!-- w3-modal -->
-<div id="modalUpdate" class="w3-modal">
-    <div class="w3-modal-content">
-        <header class="w3-container"> 
-            <span onclick="document.getElementById('modalUpdate').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <h2>Edición de desarrollos</h2>
-        </header>
-        <div class="w3-container">
-            <p><b>Saldos iniciales</b></p>
-            <label>Nombre *</label>
-            <input class="w3-input w3-border edit w3-hide" type="text" id="txtIdEdita" value="">
-            <input class="w3-input w3-border edit" type="text" id="txtNombreEdita" value="">
-            <label>Razón social *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtRazonEdita" value="">
-            <label>Calle *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtCalleEdita" value="">
-            <label># interior *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtInteriorEdita" value="">
-            <label># exterior *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtExteriorEdita" value="">
-            <label>C.P *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtCPEdita" value="">
-            <label>Colonia *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtColoniaEdita" value="">
-            <label>Localidad *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtLocalidadEdita" value="">
-            <label>Municipio *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtMunicipioEdita" value="">
-            <label>Estado *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtEstadoEdita" value="">
-            <label>País *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtPaisEdita" value="">
-            <label>R.F.C *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtRFCEdita" value="">
-            <label>Teléfono *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtTelefonoEdita" value="">
-            <label>Req Id Trib *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtIdTribEdita" value="">
-            <label>Página web *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtPaginaWebEdita" value="">
-            <label>Correo electrónico *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtCorreoEdita" value="">
-            <label>Giro *</label>
-            <input class="w3-input w3-border edit" type="text" id="txtGiroEdita" value="">
-            <button class="w3-button w3-green w3-block w3-margin-bottom" id="btnGuardar">Guardar cambios</button>
-        </div>
-    </div>
-</div><!-- w3-modal -->
-<div id="modalConsult" class="w3-modal">
-    <div class="w3-modal-content">
-        <header class="w3-container"> 
-            <span onclick="document.getElementById('modalConsult').style.display='none'" class="w3-button w3-display-topright">&times;</span>
-            <h2>Consulta de desarrollos</h2>
-        </header>
-        <div class="w3-container">
-            <p><b>Saldos iniciales</b></p>
-            <label>Nombre *</label>
-            <input class="w3-input w3-border editC w3-hide" type="text" disabled value="">
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Razón social *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Calle *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label># interior *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label># exterior *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>C.P *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Colonia *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Localidad *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Municipio *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Estado *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>País *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>R.F.C *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Teléfono *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Req Id Trib *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Página web *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Correo electrónico *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
-            <label>Giro *</label>
-            <input class="w3-input w3-border editC" type="text" disabled value="">
+            <button class="w3-button w3-green w3-block w3-margin-bottom" ></button>
         </div>
     </div>
 </div><!-- w3-modal -->
 <script>
+    var inputs = document.getElementsByClassName("inputForm");
+    
     $(document).ready(function(){
-        $("#formAlta input").each(function(){
-            $(this).val("JAJAJAJ JAJAJJA JAJAJAJ");
-        });
+        /*$("#formAlta input").each(function(){
+            $(this).val("RUBEN OMAR ROMANO");
+        });*/
         
         $("tbody tr").click(function () {
             $('.selected').removeClass('selected');
@@ -271,40 +183,65 @@
 			});//ajax
                     break;
                     case 'update':
-                        $.ajax({
-                            type: "POST",
-                            url: 'index.php',
-                            data: {c:"Desarrollos", a:"retrive", id:id},
-                            success: function(response){
-                                var inputs = document.getElementsByClassName("edit");
-                                var obj = JSON.parse(response);
-                                var idx = 0;
-                                for (var i in obj)
-                                    for (var j in obj[i])
-                                        inputs[idx++].setAttribute("value", obj[i][j]);
-				document.getElementById('modalUpdate').style.display = 'block';
-                            }//success
-			});//ajax
-                    break;
                     case 'consult':
                         $.ajax({
                             type: "POST",
                             url: 'index.php',
-                            data: {c:"Desarrollos", a:"retrive", id:id},
+                            data: {c:"Asociados", a:"retrive", id:id},
                             success: function(response){
-                                var inputs = document.getElementsByClassName("editC");
                                 var obj = JSON.parse(response);
                                 var idx = 0;
                                 for (var i in obj)
+                                {
                                     for (var j in obj[i])
-                                        inputs[idx++].setAttribute("value", obj[i][j]);
-				document.getElementById('modalConsult').style.display = 'block';
+                                    {
+                                        if(action == 'consult')
+                                            inputs[idx].disabled = true;
+                                        if( $(inputs[idx]).is(":checkbox") )
+                                        {
+                                            if(obj[i][j] == 1)
+                                                inputs[idx].checked = true;
+                                            else
+                                                inputs[idx].checked = false;
+                                        }//if
+                                        else
+                                            inputs[idx].value =  obj[i][j];
+                                        idx++;
+                                    }//for
+                                }//for
+                                if(action == 'update')
+                                {
+                                    document.getElementById('modalText').innerText = "Edición de desarrollos";
+                                    $("#modalAlta button").attr("onclick", "formActionButton('update')");
+                                    $("#modalAlta button").text("Guardar").show();
+                                }//if
+                                else
+                                {
+                                    document.getElementById('modalText').innerText = "Consulta de desarrollos";
+                                    $("#modalAlta button").hide();
+                                }//else
+                                document.getElementById('modalAlta').style.display = 'block';
                             }//success
 			});//ajax
                     break;
                 }//switch
             }//else
         });//actionButtons a
+        
+        $("#formAlta .w3-check").click( function(){
+            if($(this).is(':checked'))
+                $(this).attr('value', 1);
+            else
+                $(this).attr('value', 0);
+        });//#formAlta .w3-check
+        
+        $("#btnModalInsert").click(function(){
+            //inputsEnabled("insert");
+            document.getElementById('modalText').innerText = "Alta de desarrollos";
+            $("#modalAlta button").attr("onclick", "formActionButton('insert')");
+            $("#modalAlta button").text("Agregar").show();
+            document.getElementById('modalAlta').style.display = 'block';
+        });//btnModalInsert
         
         $("#btnExport").click(function(){
             $.ajax({
@@ -316,69 +253,51 @@
                 }//success
             });//ajax
         });//btnExport
-        
-        $("#btnAgregar").click(function(e){
-            //e.preventDefault();
-            if(!emptyFields("modalAlta"))
-            {
-                var obj = $("#formAlta").serialize();
-                $.ajax({
-                    type: "POST",
-                    url: "index.php",
-                    data: {str:obj, c:"Asociados", a:"insert"},
-                    success: function(response){
-                        $("#contenidos").html(response);
-                    }//success
-                });//ajax
-            }//if
-            else
-                alert("TODOS LOS CAMPOS SON OBLIGATORIOS.");
-        });//btnAgregar
-        
-        $("#btnGuardar").click(function(){
-            if(!emptyFields("modalUpdate"))
-            {
-                var id = $("#txtIdEdita").val();
-                var nombre = $("#txtNombreEdita").val().trim().toUpperCase();
-                var razon = $("#txtRazonEdita").val().trim().toUpperCase();
-                var calle = $("#txtCalleEdita").val().trim().toUpperCase();
-                var interior = $("#txtInteriorEdita").val().trim().toUpperCase();
-                var exterior = $("#txtExteriorEdita").val().trim().toUpperCase();
-                var cp = $("#txtCPEdita").val().trim().toUpperCase();
-                var colonia = $("#txtColoniaEdita").val().trim().toUpperCase();
-                var localidad = $("#txtLocalidadEdita").val().trim().toUpperCase();
-                var municipio = $("#txtMunicipioEdita").val().trim().toUpperCase();
-                var estado = $("#txtEstadoEdita").val().trim().toUpperCase();
-                var pais = $("#txtPaisEdita").val().trim().toUpperCase();
-                var rfc = $("#txtRFCEdita").val().trim().toUpperCase();
-                var telefono = $("#txtTelefonoEdita").val().trim().toUpperCase();
-                var idTrib = $("#txtIdTribEdita").val().trim().toUpperCase();
-                var paginaWeb = $("#txtPaginaWebEdita").val().trim().toUpperCase();
-                var correo = $("#txtCorreoEdita").val().trim().toUpperCase();
-                var giro  = $("#txtGiroEdita").val().trim().toUpperCase();
-                var obj = {id:id, nombre:nombre, razon:razon, calle:calle, interior:interior, exterior:exterior, cp:cp, colonia:colonia, localidad:localidad, municipio:municipio, estado:estado, pais:pais, rfc:rfc, telefono:telefono, idTrib:idTrib, paginaWeb:paginaWeb, correo:correo, giro:giro, c:"Desarrollos", a:"update"};
-                $.ajax({
-                    type: "POST",
-                    url: "index.php",
-                    data: obj,
-                    success: function(response){
-                        $("#contenidos").html(response);
-                    }//success
-                });//ajax
-            }//if
-            else
-                alert("TODOS LOS CAMPOS SON OBLIGATORIOS.");
-        });//btnGuardar
-        
-        function emptyFields(parent){
-            var bandera = false;
-            $("#" + parent + " input").each(function() {
-                if ($(this).val().trim() == "")
-                    bandera = true;
-            });
-            return bandera;
-        }//emptyFields
     });//document
+    
+    function formActionButton(event){
+        if(!emptyFields("modalAlta"))
+        {
+            var obj = $("#formAlta").serialize();
+            if(!obj.includes("hijos"))
+                obj += "&hijos=0";
+            if(!obj.includes("extranjero"))
+                obj += "&extranjero=0";
+            $.ajax({
+                type: "POST",
+                url: "index.php",
+                data: {str:obj, c:"Asociados", a:event},
+                success: function(response){
+                    $("#contenidos").html(response);
+                }//success
+            });//ajax
+        }//if
+        else
+            alert("TODOS LOS CAMPOS SON OBLIGATORIOS.");
+    }//formActionButton
+            
+    function inputsReset(){
+        for(var i = 0; i < inputs.length; i++)
+        {
+            if($(inputs[i]).is(":checkbox"))
+            {
+                inputs[i].checked = false;
+                inputs[i].value = 0;
+            }//if
+            else
+                inputs[i].value = '';
+            inputs[i].disabled = false;
+        }//for
+    }//inputsReset
+    
+    function emptyFields(parent){
+        var bandera = false;
+        $("#" + parent + " input").each(function() {
+            if ($(this).val().trim() == "")
+                bandera = true;
+        });
+        return bandera;
+    }//emptyFields
 </script>
 <style>
     .selected {
