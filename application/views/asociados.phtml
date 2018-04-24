@@ -37,7 +37,7 @@
             <form id="formAlta">
                 <p><b>Datos generales del asociado</b></p>
                 <label>Nombres *</label>
-                <input class="w3-input w3-border w3-hide inputForm" type="text" id="txtIdEdita" name="id">
+                <input class="w3-input w3-border w3-hide inputForm" type="text" id="txtIdEdita" name="id" value="0">
                 <input class="w3-input w3-border inputForm" type="text" id="txtNombre" name="nombre">
                 <label>Apellido paterno *</label>
                 <input class="w3-input w3-border inputForm" type="text" id="txtApellidoP" name="apellidoP">
@@ -143,6 +143,41 @@
                 <input class="w3-input w3-border inputForm" type="text" id="txtBanco" name="banco">
                 <label>Comentarios *</label>
                 <input class="w3-input w3-border inputForm" type="text" id="txtComentarios" name="comentarios">-->
+                
+                <p><b>Configuración IMSS</b></p>
+                <label>Numero IMSS *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtNumeroIMSS" name="numeroIMSS">
+                <label>Fecha de alta *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtFAIMSS" name="FAIMSS">
+                <label>Fecha de baja *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtFBIMSS" name="FBIMSS">
+                <label>Sueldo IMSS *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtSueldoIMSS" name="sueldoIMSS">
+                <label>Clinica *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtClinicaIMSS" name="clinicaIMSS">
+                <label>Tipo *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtTipoIMSS" name="tipoIMSS">
+                <label>Comentarios *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtComentarioIMSS" name="comentarioIMSS">
+                
+                <p><b>Configuración de polizas</b></p>
+                <input class="w3-input w3-border w3-hide inputForm" type="text" id="txtIdPoliza" name="idPoliza" value="0">
+                <input class="w3-input w3-border w3-hide inputForm" type="text" id="txtCodigoAsocIMSS" name="codigoAsociadoIMSS" value="0">
+                <label>Tipo *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtTipoSeguro" name="tipoSeguro">
+                <label>Fecha de inicio *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtFISeguro" name="FISeguro">
+                <label>Fecha de vencimiento *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtFVSeguro" name="FVSeguro">
+                <label>Numero de seguro *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtNumeroSeguro" name="numeroSeguro">
+                <label>Valor de la poliza *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtValorPoliza" name="valorPoliza">
+                <label>Clinica *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtClinicaSeguro" name="clinicaSeguro">
+                <label>Comentarios *</label>
+                <input class="w3-input w3-border inputForm" type="text" id="txtComentarioSeguro" name="comentarioSeguro">
+                <input class="w3-input w3-border w3-hide inputForm" type="text" id="txtCodigoAsocSeg" name="codigoAsociadoSeguros" value="0">
             </form>
             <button class="w3-button w3-green w3-block w3-margin-bottom" ></button>
         </div>
@@ -153,7 +188,7 @@
     
     $(document).ready(function(){
         /*$("#formAlta input").each(function(){
-            $(this).val("RUBEN OMAR ROMANO");
+            $(this).val("MILTON JOEL CARAGLIO");
         });*/
         
         $("tbody tr").click(function () {
@@ -191,6 +226,7 @@
                             success: function(response){
                                 var obj = JSON.parse(response);
                                 var idx = 0;
+                                //alert(response);
                                 for (var i in obj)
                                 {
                                     for (var j in obj[i])
@@ -211,13 +247,13 @@
                                 }//for
                                 if(action == 'update')
                                 {
-                                    document.getElementById('modalText').innerText = "Edición de desarrollos";
+                                    document.getElementById('modalText').innerText = "Edición de asociados";
                                     $("#modalAlta button").attr("onclick", "formActionButton('update')");
                                     $("#modalAlta button").text("Guardar").show();
                                 }//if
                                 else
                                 {
-                                    document.getElementById('modalText').innerText = "Consulta de desarrollos";
+                                    document.getElementById('modalText').innerText = "Consulta de asociados";
                                     $("#modalAlta button").hide();
                                 }//else
                                 document.getElementById('modalAlta').style.display = 'block';
@@ -237,7 +273,7 @@
         
         $("#btnModalInsert").click(function(){
             //inputsEnabled("insert");
-            document.getElementById('modalText').innerText = "Alta de desarrollos";
+            document.getElementById('modalText').innerText = "Alta de asociados";
             $("#modalAlta button").attr("onclick", "formActionButton('insert')");
             $("#modalAlta button").text("Agregar").show();
             document.getElementById('modalAlta').style.display = 'block';
@@ -294,7 +330,10 @@
         var bandera = false;
         $("#" + parent + " input").each(function() {
             if ($(this).val().trim() == "")
+            {
+                console.log($(this).attr('id'));
                 bandera = true;
+            }//
         });
         return bandera;
     }//emptyFields
