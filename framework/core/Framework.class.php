@@ -202,11 +202,12 @@
    				    switch(ACTION)
    				    {
    				        case 'insert':
-                            parse_str($_POST['str'], $params);
+                                            parse_str($_POST['str'], $params);
    				            $controller->$action_name($params);
    				        break;
-                        case 'update':
-   				            $controller->$action_name($_POST['id'], $_POST['nombre']);
+                                        case 'update':
+                                            parse_str($_POST['str'], $params);
+   				            $controller->$action_name($params);
    				        break;
    				        case 'delete':
    				            $controller->$action_name($_POST['id']);
