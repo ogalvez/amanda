@@ -1,0 +1,62 @@
+<form id="formaEditarEmpresa">
+<label for="descripcion">Descripción de la Empresa </label> 
+	<input type="hidden" name="id" id="idEmpresa" value="<?php echo $empresa[0]['ID']; ?>"/> 
+	<input placeholder="Descripción de la empresa" type="text" name="descripcion" id="descripcionEmpresa" value="<?php echo $empresa[0]['DESCRIPCION']?>" /> 
+	<label for="tipo">Tipo de Empresa</label>
+	<select name="tipo">
+		<option value="">Seleccionar Tipo</option>
+		<option value="B">Bancos</option>
+		<option value ="F">Facturadora</option>
+		<option value="C">Concentradora</option>
+	</select>
+	<label for="clave">Clave</label> 
+	<input placeholder="Clave"	type="text" name="clave" id="claveEmpresa" value="<?php echo $empresa[0]['CLAVE_M']?>" /> 
+	<label for="Plaza">Plaza</label> 
+	<select  name="plaza">
+		<option value="">Selecciona Estado...</option>
+		<option value="2">Los Cabos</option>
+		<option value="3">Colima</option>
+		<option value="15">Ixtapa</option>
+	</select>
+	<button id="enviarEditar" onclick="updateEmpresa(); return false"class="button">Enviar</button>
+	<button class="button" type="reset" value="Reset">Borrar</button>
+</form>
+ <script>
+
+$('select[name="tipo"]').val("<?php echo $empresa[0]['TIPO'];?>");
+
+$('select[name="plaza"]').val("<?php echo $empresa[0]['PLAZA_ID_PLAZA'];?>");
+
+function updateEmpresa(){
+	var forma = new FormData($('#formaEditarEmpresa')[0]);
+		//alert(formaPlaza.length);
+		
+	var jsonData = {c:"Empresas", 
+					a:"update",
+					id: forma.get("id"),
+					clave: forma.get("clave") , 
+					tipo: forma.get("tipo"),
+					descripcion: forma.get("descripcion") , 
+					plaza: forma.get("plaza") 
+					};
+
+	console.log(jsonData);
+	$.ajax({
+        type: "POST",
+        url: "index.php",
+        data: jsonData,
+        success: function(response){
+            $('#dialogEmpresa').dialog("close");
+            $("#contenidos").html(response);
+        }//success
+    });//ajax
+	
+	}			
+	
+
+
+ </script>
+
+
+
+

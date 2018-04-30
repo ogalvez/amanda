@@ -1,0 +1,42 @@
+<form id="formaEmpresa">
+	<input disabled type="hidden" name="id" ></input>
+	<label for="descripcion">Descripción de la Empresa </label> 
+	<input disabled placeholder="Descripción de la empresa" type="text" name="descripcion" id="descripcionEmpresa" value= "<?php echo($empresa[0]['DESCRIPCION']); ?>" /> 
+	<label for="tipo">Tipo de Empresa</label>
+	<select  disabled name="tipo">
+		<option value="">Seleccionar Tipo</option>
+		<option value="B">Bancos</option>
+		<option value ="F">Facturadora</option>
+		<option value="C">Concentradora</option>
+	</select>
+	<label for="clave">Clave</label> 
+	<input  placeholder="Clave"	type="TEXT" name="clave" id="claveEmpresa"  disabled value= "<?php echo($empresa[0]['CLAVE_M']); ?>" /> 
+	<label for="Plaza">Plaza</label> 
+	<select  disabled name="plaza">
+		<option value="">Selecciona Estado...</option>
+		<option value="2">Los Cabos</option>
+		<option value="3">Colima</option>
+		<option value="15">Ixtapa</option>
+	</select>
+	
+</form>
+
+
+ <script>
+ $('select[name=tipo]').val("<?php print_r($empresa[0]['TIPO']); ?>");
+ $('select[name=plaza]').val("<?php print_r($empresa[0]['PLAZA_ID_PLAZA']); ?>");
+
+  </script> 
+
+
+
+
+
+
+
+
+
+
+
+
+

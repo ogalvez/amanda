@@ -1,0 +1,27 @@
+<form id="formaAltaEmpresa">
+	<label for="descripcion">Descripción de la Empresa </label> 
+	<input placeholder="Descripción de la empresa" type="text" name="descripcion" id="descripcionEmpresa" /> 
+	<label for="tipo">Tipo de Empresa</label>
+	<select name="tipo">
+		<option value="">Seleccionar Tipo</option>
+		<option value="B">Bancos</option>
+		<option value ="F">Facturadora</option>
+		<option value="C">Concentradora</option>
+	</select>
+	<label for="clave">Clave</label> 
+	<input placeholder="Clave"	type="password" name="clave" id="claveEmpresa" /> 
+	<label for="Plaza">Plaza</label> 
+	<select  name="plaza">
+		<option value="">Selecciona Estado...</option>
+		<option value="2">Los Cabos</option>
+		<option value="3">Colima</option>
+		<option value="15">Ixtapa</option>
+	</select>
+	<button class="button" onclick="altaEmpresa(); return false">Enviar</button>
+	<button class="button" type="reset" value="Reset" >Borrar Campos</button>
+</form>
+
+
+
+
+

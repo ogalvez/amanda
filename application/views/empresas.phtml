@@ -1,0 +1,164 @@
+<div class="grid-x">
+<div class="large-12 cell" style="width: 65%; margin-left: 130px;"> 
+<h3>Empresas</h3>
+</div>
+<div class="large-8 cell" id="tablaEmpresas">
+<table >
+	<thead>
+		<tr>
+			<th width="100">ID</th>
+			<th width="150">FECHA</th>
+			<th width="150">CLAVE_M</th>
+			<th width="150">DESCRIPCION</th>
+			<th width="150">TIPO</th>
+			<th width="150">ID_PLAZA</th>
+		</tr> 
+	</thead>
+	<tbody>
+	<?php 
+	
+	foreach($empresas as $key => $row)
+	    
+				echo "<tr>
+					<td> $row[ID]</td> 
+					<td> $row[FECHA]</td> 
+					<td> $row[CLAVE_M]</td> 
+                    <td> $row[DESCRIPCION]</td> 
+                    <td> $row[TIPO]</td> 
+                    <td> $row[PLAZA_ID_PLAZA]</td> 
+                    
+				</tr>";
+		?>
+		</tbody>
+	</table>
+</div> 
+
+<div class="large-4 cell" id="menuAcciones">
+<i id="agregar" class="fi-burst-new size-12"></i>
+<i id="consultar" class="fi-magnifying-glass size-12"></i>
+<i id="modificar" class="fi-clipboard-pencil size-12"></i>
+<i id="eliminar" class="fi-page-delete size-12"></i>
+<i id="imprimir" class="fi-print size-12"></i>
+</div>
+</div>
+
+<div id="dialogEmpresa">
+</div>
+	<script type="text/javascript">
+		
+		$("tbody tr").click(function () {
+		    $('.selected').removeClass('selected');
+		    $(this).addClass("selected");
+		});
+
+		$("#menuAcciones i").click(function(){
+			
+			if($('.selected td:first-of-type')[0]){
+				var idEmpresa = $('.selected td:first-of-type')[0].innerText;
+			    var accion = $(this)[0].id;
+			   
+				    switch(accion) {
+			    case "agregar":
+			    	$("#dialogEmpresa").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialogEmpresa").dialog("open");
+				    $("#dialogEmpresa").load("application/views/altaempresa.phtml");
+			        
+			        break;
+			    case "consultar":
+			    	$("#dialogEmpresa").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialogEmpresa").dialog("open");
+				   
+			    	$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:'Empresas', a:'consulta', id: idEmpresa},
+						success: function(response){
+							
+							$("#dialogEmpresa").html(response);
+						}//success
+					});//ajax
+			        break;
+
+			    case "modificar":
+			    	
+			    	$("#dialogEmpresa").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialogEmpresa").dialog("open");
+			    	$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:'Empresas', a:'llenarFormaEditar', id : idEmpresa},
+						success: function(response){
+							
+							$("#dialogEmpresa").html(response);
+						}//success
+					});//ajax
+
+			    	
+			        break;
+			    case "eliminar":
+				    
+				    var id = $(".selected td").first()[0].innerText;
+					
+			    	$.ajax({
+						type: "POST",
+						url: 'index.php',
+						data: {c:'Empresas', a:'delete', id:id},
+						success: function(response){
+							
+							$("#contenidos").html(response);
+						}//success
+					});//ajax
+			        break;
+			    case "imprimir":
+			        break;
+
+
+				  default:
+			        alert("default");
+			} 
+			    
+			    
+				}
+			else {
+
+			    var accion = $(this)[0].id;
+				
+					if(accion === "agregar") {$("#dialogEmpresa").dialog({autoOpen: false,   height: 'auto' ,   width: 300 });
+				    $("#dialogEmpresa").dialog("open");
+				    $("#dialogEmpresa").load("application/views/altaempresa.phtml");
+							}
+				
+				}
+ 
+			});
+
+
+		function altaEmpresa(){
+			var forma = new FormData($('#formaAltaEmpresa')[0]);
+				//alert(formaPlaza.length);
+				
+			var jsonData = {c:"Empresas", 
+							a:"insert",
+							clave: forma.get("clave") , 
+							tipo: forma.get("tipo"),
+							descripcion: forma.get("descripcion") , 
+							plaza: forma.get("plaza") 
+							};
+
+			console.log(jsonData);
+			$.ajax({
+		        type: "POST",
+		        url: "index.php",
+		        data: jsonData,
+		        success: function(response){
+		            $('#dialogEmpresa').dialog("close");
+		            $("#contenidos").html(response);
+		        }//success
+		    });//ajax
+			
+			}			
+
+
+	
+		 </script>
+
